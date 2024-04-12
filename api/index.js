@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
-import authRouter  from './routes/auth.router.js';
+import authRouter  from './routes/auth.route.js';
 
 dotenv.config();
 const app = express();
@@ -22,7 +22,7 @@ app.listen(3000, () => {
   });
   
   app.use('/api/user', userRouter);
-  app.use('./api/auth', authRouter);
+  app.use('/api/auth', authRouter);
 
   //we create a middleware to handles error  if they are not caught by other middlewares or handlers
   app.use((err,req,res,next)=> {
