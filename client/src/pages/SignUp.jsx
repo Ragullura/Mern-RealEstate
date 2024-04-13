@@ -2,7 +2,7 @@ import {  Alert, Button, Label,Spinner, TextInput } from 'flowbite-react'
 import house from "../assets/house.png"
 import { Link, useNavigate  } from 'react-router-dom';
 import  { useState } from 'react';
-
+import OAuth from '../components/OAuth';
 export default function SignUp() {
   const [formData,setFormData] =useState({});//initially  empty object to store the form data
 
@@ -77,7 +77,7 @@ export default function SignUp() {
       {/* for left side */}
       <div className='flex-1'>
        <Link to='/'>
-        <img src={house} alt="signUp" className='
+        <img src={house} alt="signUp" className='w-[680px] h-[350px]
         max-lg:hidden rounded-s-lg  '/>  
        </Link>
        <p className='text-sm mt-5 text-slate-500 '>
@@ -111,6 +111,7 @@ export default function SignUp() {
                 ) :('SIGN UP')
               }
             </Button>
+            <OAuth />
           </form>
           <div className='flex gap-2 text-sm mt-5'>
             <span>Have an Account ?</span>
