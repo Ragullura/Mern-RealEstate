@@ -212,7 +212,7 @@ const uploadImage =async () =>{
                       {loading ? 'Loading...' : 'Update'}
                 </Button>
       {currentUser && (
-                <Link to={'/create-post'}>
+                <Link to={'/create-listing'}>
                   <Button
                     type='button' outline
                     gradientDuoTone='greenToBlue'
