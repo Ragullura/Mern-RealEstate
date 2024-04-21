@@ -9,11 +9,11 @@ import { useSelector } from 'react-redux';
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   return (
-    <header className='bg-slate-200 shadow-md'>
-      <div className='flex justify-between items-center max-w-7xl mx-auto p-3'>
-        <Link to='/' className='flex item gap-2'>
+    <header className=' sticky top-0 z-30  bg-slate-200 shadow-lg w-full bg-opacity-80  backdrop-blur-sm'>
+      <div className='relative  flex justify-between items-center max-w-7xl mx-auto p-3 '>
+        <Link to='/' className='flex item gap-2 '>
         <img src={logo1} alt='logo' className='w-9 h-9 object-contain' />
-        <h1 className=' font-bold text-sm sm:text-xl flex flex-wrap  items-center'>
+        <h1 className=' font-bold text-sm sm:text-xl flex flex-wrap  items-center '>
           <span className='text-slate-600'>Real&nbsp;</span>
           <span className='text-green-500'>Estate</span>
         </h1>

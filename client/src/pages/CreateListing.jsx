@@ -297,7 +297,7 @@ const handleSubmit = async (e) => {
               <div className="flex flex-col items-center">
                 <p>Regular price</p>
                 {formData.type === 'rent' && (
-                <span className="text-xs">(&#x24; / month)</span>
+                <span className="text-xs">(&#8377; / month)</span>
                 )}
               </div>
             </div>
@@ -317,7 +317,7 @@ const handleSubmit = async (e) => {
               <div className="flex flex-col items-center">
                 <p>Discounted price</p>
                 {formData.type === 'rent' && (
-                <span className="text-xs">(&#x24; / month)</span>
+                <span className="text-xs">(&#8377; / month)</span>
                 )}
               </div>
             </div>
