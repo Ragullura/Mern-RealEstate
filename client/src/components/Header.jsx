@@ -1,13 +1,30 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import logo1 from '../assets/logo1.png'
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import {Button, TextInput} from 'flowbite-react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { RiMenuFoldLine } from "react-icons/ri";
+/* import { RiMenuFoldLine } from "react-icons/ri"; */
 import { useSelector } from 'react-redux';
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
   return (
     <header className=' sticky top-0 z-30  bg-slate-200 shadow-lg w-full bg-opacity-80  backdrop-blur-sm'>
       <div className='relative  flex justify-between items-center max-w-7xl mx-auto p-3 '>
@@ -18,14 +35,15 @@ export default function Header() {
           <span className='text-green-500'>Estate</span>
         </h1>
         </Link>
-        <form >
+        <form onSubmit={handleSubmit} className='flex items-center' >
           <TextInput type="text" placeholder='Search...'
-          rightIcon={AiOutlineSearch}
-          className='hidden lg:inline focus:outline-none'
+          rightIcon={AiOutlineSearch} value={searchTerm}
+          onChange={(e)=>{setSearchTerm(e.target.value)}}
+          className='hidden lg:inline focus:outline-none  cursor-pointer'
            />
 
         </form>
-        <Button className=' w-12 h-10 lg:hidden ' color='gray' pill><AiOutlineSearch /></Button>
+        <Button type='button' className=' w-12 h-10 lg:hidden ' color='gray' pill><AiOutlineSearch className='cursor-pointer' /></Button>
         <ul className='flex gap-4'>
         <Link to='/'>
           <li className='hidden sm:inline text-slate-700 hover:text-blue-500 transition duration-200'>
@@ -52,7 +70,7 @@ export default function Header() {
           
         </Link>
       </ul>
-      <RiMenuFoldLine className=' w-6 h-6 text-slate-700' />
+      {/* <RiMenuFoldLine className=' w-6 h-6 text-slate-700' /> */}
       </div>
       
     </header>
