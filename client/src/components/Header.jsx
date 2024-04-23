@@ -29,7 +29,7 @@ export default function Header() {
     <header className=' sticky top-0 z-30  bg-slate-200 shadow-lg w-full bg-opacity-80  backdrop-blur-sm'>
       <div className='relative  flex justify-between items-center max-w-7xl mx-auto p-3 '>
         <Link to='/' className='flex item gap-2 '>
-        <img src={logo1} alt='logo' className='w-9 h-9 object-contain' />
+        <img src={logo1} alt='logo' className='w-9 h-9 object-contain ' />
         <h1 className=' font-bold text-sm sm:text-xl flex flex-wrap  items-center '>
           <span className='text-slate-600'>Real&nbsp;</span>
           <span className='text-green-500'>Estate</span>
@@ -43,7 +43,10 @@ export default function Header() {
            />
 
         </form>
-        <Button type='button' className=' w-12 h-10 lg:hidden ' color='gray' pill><AiOutlineSearch className='cursor-pointer' /></Button>
+        <Link to='/search' >
+        <Button type='button'  className=' w-10 h-10 lg:hidden flex items-center justify-center ' color='gray'  pill><AiOutlineSearch className='cursor-pointer ' /></Button>
+        </Link>
+        
         <ul className='flex gap-4'>
         <Link to='/'>
           <li className='hidden sm:inline text-slate-700 hover:text-blue-500 transition duration-200'>
