@@ -39,9 +39,9 @@ export default function Header() {
           <TextInput type="text" placeholder='Search...'
           rightIcon={AiOutlineSearch} value={searchTerm}
           onChange={(e)=>{setSearchTerm(e.target.value)}}
-          className='hidden lg:inline focus:outline-none  cursor-pointer'
+          className='hidden lg:inline   cursor-pointer'
            />
-
+        
         </form>
         <Link to='/search' >
         <Button type='button'  className=' w-10 h-10 lg:hidden flex items-center justify-center ' color='gray'  pill><AiOutlineSearch className='cursor-pointer ' /></Button>
