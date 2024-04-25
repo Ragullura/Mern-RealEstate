@@ -36,7 +36,7 @@ export default function CreateListing() {
   const navigate = useNavigate();
 /* -------------handleImageSubmit------------------ */
   const handleImageSubmit = (e) => {
-    if (files.length > 0 && files.length < 7) {
+    if (files.length > 0 && files.length + formData.imageUrls.length < 7){
       setUploading(true);
       setImageUploadError(false);
 
@@ -81,6 +81,7 @@ export default function CreateListing() {
           // Observe when the download is "complete"
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log(`Upload is ${progress}% done`);
         },
         (error) => {
           reject(error);

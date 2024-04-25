@@ -1,11 +1,11 @@
-import { Button } from "flowbite-react";
+import { Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ListingItem from "../components/ListingItem";
 
 export default function Search() {
   const navigate = useNavigate();
-  const [sidebardata, setsidebardata] = useState({
+  const [sidebardata, setSidebardata] = useState({
     searchTerm: "",
     type: "all",
     parking: false,
@@ -22,13 +22,13 @@ export default function Search() {
   /* -------------UseEffect --------------------- */
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    const searchTermFromUrl = urlParams.get("searchTerm");
-    const typeFromUrl = urlParams.get("type");
-    const parkingFromUrl = urlParams.get("parking");
-    const furnishedFromUrl = urlParams.get("furnished");
-    const offerFromUrl = urlParams.get("offer");
-    const sortFromUrl = urlParams.get("sort");
-    const orderFromUrl = urlParams.get("order");
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    const typeFromUrl = urlParams.get('type');
+    const parkingFromUrl = urlParams.get('parking');
+    const furnishedFromUrl = urlParams.get('furnished');
+    const offerFromUrl = urlParams.get('offer');
+    const sortFromUrl = urlParams.get('sort');
+    const orderFromUrl = urlParams.get('order');
 
     if (
       searchTermFromUrl ||
@@ -39,18 +39,16 @@ export default function Search() {
       sortFromUrl ||
       orderFromUrl
     ) {
-      setsidebardata({
-        searchTerm: searchTermFromUrl || "",
-        type: typeFromUrl || "all",
-        parking: parkingFromUrl === "true" ? true : false,
-        furnished: furnishedFromUrl === "true" ? true : false,
-        offer: offerFromUrl === "true" ? true : false,
-        sort: sortFromUrl || "created_at",
-        order: orderFromUrl || "desc",
+      setSidebardata({
+        searchTerm: searchTermFromUrl || '',
+        type: typeFromUrl || 'all',
+        parking: parkingFromUrl === 'true' ? true : false,
+        furnished: furnishedFromUrl === 'true' ? true : false,
+        offer: offerFromUrl === 'true' ? true : false,
+        sort: sortFromUrl || 'created_at',
+        order: orderFromUrl || 'desc',
       });
     }
-
-    /* now fetch data from database */
 
     const fetchListings = async () => {
       setLoading(true);
@@ -58,6 +56,7 @@ export default function Search() {
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
+     
       if (data.length > 8) {
         setShowMore(true);
       } else {
@@ -66,8 +65,10 @@ export default function Search() {
       setListings(data);
       setLoading(false);
     };
+
     fetchListings();
   }, [location.search]);
+
 
   /* handle  search bar */
   const handleChange = (e) => {
@@ -76,11 +77,11 @@ export default function Search() {
       e.target.id === "rent" ||
       e.target.id === "sale"
     ) {
-      setsidebardata({ ...sidebardata, type: e.target.id });
+      setSidebardata({ ...sidebardata, type: e.target.id });
     }
 
     if (e.target.id === "searchTerm") {
-      setsidebardata({ ...sidebardata, searchTerm: e.target.value });
+      setSidebardata({ ...sidebardata, searchTerm: e.target.value });
     }
 
     if (
@@ -88,7 +89,7 @@ export default function Search() {
       e.target.id === "furnished" ||
       e.target.id === "offer"
     ) {
-      setsidebardata({
+      setSidebardata({
         ...sidebardata,
         [e.target.id]:
           e.target.checked || e.target.checked === "true" ? true : false,
@@ -100,7 +101,7 @@ export default function Search() {
 
       const order = e.target.value.split(sort)[1] || "desc";
 
-      setsidebardata({ ...sidebardata, sort, order });
+      setSidebardata({ ...sidebardata, sort, order });
     }
   };
 
@@ -108,17 +109,17 @@ export default function Search() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams();
-    urlParams.set("searchTerm", sidebardata.searchTerm);
-    urlParams.set("type", sidebardata.type);
-    urlParams.set("parking", sidebardata.parking);
-    urlParams.set("furnished", sidebardata.furnished);
-    urlParams.set("offer", sidebardata.offer);
-    urlParams.set("sort", sidebardata.sort);
-    urlParams.set("order", sidebardata.order);
-
+    urlParams.set('searchTerm', sidebardata.searchTerm);
+    urlParams.set('type', sidebardata.type);
+    urlParams.set('parking', sidebardata.parking);
+    urlParams.set('furnished', sidebardata.furnished);
+    urlParams.set('offer', sidebardata.offer);
+    urlParams.set('sort', sidebardata.sort);
+    urlParams.set('order', sidebardata.order);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
+
   return (
     <div className="flex flex-col md:flex-row">
       {/*  SEARCH BAR Left Side */}
@@ -220,8 +221,9 @@ export default function Search() {
               <option value="createdAt_asc">Oldest</option>
             </select>
           </div>
+
           <Button
-            type="button"
+            type="submit"
             outline
             gradientDuoTone="greenToBlue"
             className="w-full from-amber-300"
@@ -236,6 +238,25 @@ export default function Search() {
         <h1 className="text-3xl font-semibold border-b p-3 text-slate-700 mt-5">
           Listing Results :
         </h1>
+        {/* -------Loading effect-------- */}
+        <div className='p-7 flex flex-wrap gap-4'> 
+
+        {!loading && listings.length === 0 && (
+            <p className='text-xl text-slate-700'>No listing found!</p>
+          )}
+          {loading && (
+            <p className='text-xl text-slate-700 text-center w-full'>
+              Loading...
+            </p>
+          )}
+      
+       {!loading &&
+            listings &&
+            listings.map((listing) => (
+              <ListingItem key={listing._id} listing={listing} />
+            ))}
+
+        </div>
       </div>
       {/* -----sec div end------ */}
     </div>
