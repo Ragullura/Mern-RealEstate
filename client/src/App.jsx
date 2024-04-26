@@ -6,6 +6,7 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import CreateListing from './pages/CreateListing';
 import UpdateListing from './pages/UpdateListing';
@@ -30,6 +31,7 @@ export default function  App() {
         </Route>
         
     </Routes>
+    <Footer />
     </BrowserRouter>
 
   )
