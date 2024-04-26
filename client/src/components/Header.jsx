@@ -31,8 +31,8 @@ export default function Header() {
         <Link to='/' className='flex item gap-2 '>
         <img src={logo1} alt='logo' className='w-9 h-9 object-contain ' />
         <h1 className=' font-bold text-sm sm:text-xl flex flex-wrap  items-center '>
-          <span className='text-slate-600'>Real&nbsp;</span>
-          <span className='text-green-500'>Estate</span>
+          <span className='text-slate-600'>House&nbsp;</span>
+          <span className='text-green-500'>Hive</span>
         </h1>
         </Link>
         <form onSubmit={handleSubmit} className='flex items-center' >
