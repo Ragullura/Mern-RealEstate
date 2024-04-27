@@ -15,7 +15,7 @@ export default function Footercom() {
             <Link to='/' className='self-center whitespace-nowrap text-lg 
             sm:text-xl font-semibold dark:text-white'>
                 <div className='flex'>
-            <img src={logo1} alt="Luras Logo" 
+            <img src={logo1} alt="Logo" 
              className='w-16 h-16 dark:caret-lime-50' />
              <span className='flex items-center text-2xl'>
              <span className='px-2 py-1 text-orange-500 font-extrabold font-serif  '>
