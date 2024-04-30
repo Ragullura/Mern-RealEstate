@@ -5,7 +5,7 @@ import userRouter from './routes/user.route.js';
 import authRouter  from './routes/auth.route.js';
 import listingRouter  from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
-
+import path  from 'path';
 dotenv.config();
 const app = express();
 
@@ -19,6 +19,8 @@ mongoose.connect(process.env.MONGO).then(() => {
     console.log(err);
 });
 
+const __dirname =path.resolve();
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000!');
   });
@@ -27,6 +29,13 @@ app.listen(3000, () => {
   app.use('/api/auth', authRouter);
   app.use('/api/listing', listingRouter);
 
+  // Serve static files if we are in production
+  app.use(express.static(path.join(__dirname,'/client/dist')));
+  // Handling any routes that don't match the ones above (Should be at the end)
+  app.get('*', (req, res) =>{
+    res.sendFile(path.join(__dirname,'client', 'dist','index.html'));//__dirname + '/views/index.html
+  })
+      
   //we create a middleware to handles error  if they are not caught by other middlewares or handlers
   app.use((err,req,res,next)=> {
     const statusCode =err.statusCode || 500;
